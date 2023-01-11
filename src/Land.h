@@ -13,6 +13,7 @@ public:
     Land(GameDataRef data);
     void moveLand(float delta);
     void drawLand();
+    const std::vector<sf::Sprite> &getSprites() const;
 };
 
 

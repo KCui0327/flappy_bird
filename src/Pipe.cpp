@@ -30,13 +30,28 @@ void Pipe::movePipes(float delta) {
             pipeSprites.at(i).move(-movement, 0);
         }
     }
+
+    for (unsigned short int i = 0; i < scoringPipes.size(); i++) {
+        if(scoringPipes.at(i).getPosition().x < 0 - scoringPipes.at(i).getGlobalBounds().width) {
+            scoringPipes.erase(scoringPipes.begin() + i);
+        } else {
+            float movement = PIPE_MOVEMENT_SPEED * delta;
+            scoringPipes.at(i).move(-movement, 0);
+        }
+    }
 }
 
 void Pipe::spawnInvisiblePipe() {
-    sf::Sprite sprite(_data->assets.getTexture("Pipe Up"));
-    sprite.setPosition(_data->window.getSize().x, _data->window.getSize().y - sprite.getGlobalBounds().height);\
+    sf::Sprite sprite(_data->assets.getTexture("Pipe Down"));
+    sprite.setPosition(_data->window.getSize().x, _data->window.getSize().y - sprite.getGlobalBounds().height);
     sprite.setColor(sf::Color(0, 0, 0, 0));
     pipeSprites.push_back(sprite);
+}
+
+void Pipe::spawnScoringPipe() {
+    sf::Sprite sprite(_data->assets.getTexture("Scoring Pipe"));
+    sprite.setPosition(_data->window.getSize().x, 0);
+    scoringPipes.push_back(sprite);
 }
 
 void Pipe::drawPipes() {
@@ -47,4 +62,12 @@ void Pipe::drawPipes() {
 
 void Pipe::randomizePipeOffset() {
     _pipeSpawnYOffset = rand() % (_landHeight + 1);
+}
+
+const std::vector<sf::Sprite> &Pipe::getSprites() const {
+    return pipeSprites;
+}
+
+std::vector<sf::Sprite> &Pipe::getScoringSprites() {
+    return scoringPipes;
 }

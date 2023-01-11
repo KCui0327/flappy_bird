@@ -22,6 +22,7 @@ public:
     void animate(float delta);
     void update(float  delta);
     void tap();
+    const sf::Sprite &getSprite() const;
 };
 
 

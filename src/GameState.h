@@ -7,6 +7,9 @@
 #include "Pipe.h"
 #include "Land.h"
 #include "Bird.h"
+#include "Collision.h"
+#include "Flash.h"
+#include "HUD.h"
 
 class GameState : public State {
 private:
@@ -16,7 +19,12 @@ private:
     Pipe *pipe;
     Land *land;
     Bird *bird;
+    Flash *flash;
+    HUD *hud;
+    Collision collision;
     sf::Clock clock;
+    int _gameState;
+    int _score;
 public:
     GameState(GameDataRef data);
     void init();
